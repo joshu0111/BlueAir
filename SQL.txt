@@ -75,6 +75,14 @@ la classe ECO.
 que la classe ECO.
 -Créer une classe ECO qui portera sur les places restantes. 
 
+insert into classe (NumVol, NomClasse, CoeffPlace, CoeffPrix)
+values ('V9000', 'AFF', 0.400, 2.0);
+
+insert into classe (NumVol, NomClasse, CoeffPlace, CoeffPrix)
+values ('V9000', 'TOUR', 0.400, 1.5);
+
+insert into classe (NumVol, NomClasse, CoeffPlace, CoeffPrix)
+values ('V9000', 'ECO', 0.200, 1);
 
   
   
