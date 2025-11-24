@@ -1,1 +1,36 @@
+1) Récupérer le fichier de création de tables AVION, PILOTE, CLIENT et VOL sur le cours en ligne.
+Y ajouter les clés primaires. 
 
+ALTER TABLE avion
+  ADD CONSTRAINT pk_avion PRIMARY KEY (NumAv);
+
+ALTER TABLE pilote
+  ADD CONSTRAINT pk_pilote PRIMARY KEY (NumPil);
+
+ALTER TABLE client
+  ADD CONSTRAINT pk_client PRIMARY KEY (NumCl);
+
+ALTER TABLE vol
+  ADD CONSTRAINT pk_vol PRIMARY KEY (NumVol);
+
+2) Créer les tables CLASSE et RESERVATION avec leurs clés primaires. 
+
+CREATE TABLE classe (
+    NumVol VARCHAR(5),
+    NomClasse VARCHAR2(15),
+    CoeffPlace NUMBER(4,3),
+    CoeffPrix NUMBER(3,1),
+    CONSTRAINT pk_classe PRIMARY KEY (NumVol, NomClasse)
+);
+
+CREATE TABLE reservation (
+    NumVol VARCHAR(5),
+    NomClasse VARCHAR2(15),
+    NumCl NUMBER(5),
+    NbPlaces NUMBER(3),
+    CONSTRAINT pk_reservation PRIMARY KEY (NumVol, NomClasse, NumCl)
+);
+
+
+  
+  
