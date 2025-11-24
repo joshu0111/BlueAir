@@ -32,5 +32,49 @@ CREATE TABLE reservation (
 );
 
 
+3) Ajouter les clés étrangères à toutes les tables à l’aide de requêtes ALTER TABLE et nommer les
+contraintes. 
+
+ALTER TABLE vol
+ADD CONSTRAINT VFKA
+FOREIGN KEY (NumAv) 
+REFERENCES avion(NumAv);
+
+ALTER TABLE vol
+ADD CONSTRAINT VFKP 
+FOREIGN KEY (NumPil) 
+REFERENCES pilote(NumPil);
+
+ALTER TABLE classe
+ADD CONSTRAINT CFKV
+FOREIGN KEY (NumVol) 
+REFERENCES vol(NumVol);
+
+ALTER TABLE reservation
+ADD CONSTRAINT RFKV 
+FOREIGN KEY (NumVol) 
+REFERENCES vol(NumVol);
+
+ALTER TABLE reservation
+ADD CONSTRAINT RFKC
+FOREIGN KEY (NumVol, NomClasse) 
+REFERENCES classe(NumVol, NomClasse);
+
+ALTER TABLE reservation
+ADD CONSTRAINT RFKCl
+FOREIGN KEY (NumCl) 
+REFERENCES client(NumCl);
+
+
+4) Insérer les données à partir du fichier disponible sur le cours en ligne dans les tables : AVION,
+PILOTE, CLIENT, VOL. 
+5) Pour la table CLASSE et le vol V9000 :
+-Créer une classe « AFF » qui portera sur 40% des places et qui coûtera 2 fois plus cher que
+la classe ECO.
+-Créer une classe « TOUR » qui portera sur 40% des places et qui coûtera 1,5 fois plus cher
+que la classe ECO.
+-Créer une classe ECO qui portera sur les places restantes. 
+
+
   
   
