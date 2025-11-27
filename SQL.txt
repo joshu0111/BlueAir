@@ -158,9 +158,9 @@ select client.nomcl,count(reservation.numcl) from client inner join reservation 
 
 select client.numcl, nomcl from reservation inner join client on reservation.numcl=client.numcl group by client.numcl, nomcl having count(*)>=2;
 
-20)
+20) Numéros et noms des pilotes qui n’effectuent aucun vol.
 
-
+select numpil, nompil from pilote where numpil not in (select numpil from vol)
 
 21) Numéros et noms de chaque pilote et nombre d’avions qu’il pilote.
 
