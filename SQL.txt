@@ -166,6 +166,8 @@ select numpil, nompil from pilote where numpil not in (select numpil from vol)
 
 select vol.numpil, nompil, count(numvol) from pilote inner join vol on pilote.numpil=vol.numpil group by vol.numpil, nompil ;
 
+22) Donner le temps de vol total par pilote, exprimé en heures arrondies au centième
+
 
 
 
