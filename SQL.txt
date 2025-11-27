@@ -125,5 +125,9 @@ select villed, round(AVG(coutvol), 2) from vol group by villed;
 12) Afficher les numéros des vols, la destination et l’heure de départ des vols en partance de
 Marseille. 
 
+SELECT numvol, villea, to_char(dated, 'hh24:mi') from VOL where villed = 'Marseille';
+
+13)
+
 
   
