@@ -143,7 +143,13 @@ select numvol, modav, villed, dated, to_char(dated, 'hh24:mi') from vol
 join avion on vol.numav=avion.numav; 
 
 16) Afficher le nombre de villes desservies par la compagnie.
-select count(villed) from vol 
+select count(villed) from vol
+
+17) Afficher le nombre de places réservées sur le vol V9000. 
+
+select sum(nbplaces) from reservation where numvol='V9000'
+
+
 
 
 
