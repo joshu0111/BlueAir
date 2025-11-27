@@ -152,9 +152,17 @@ select sum(nbplaces) from reservation where numvol='V9000'
 18)
 
 
-19)Afficher les numéros et noms des clients ayant effectué au moins 2 réservations. $
+19) Afficher les numéros et noms des clients ayant effectué au moins 2 réservations. $
 
 select client.numcl, nomcl from reservation inner join client on reservation.numcl=client.numcl group by client.numcl, nomcl having count(*)>=2;
+
+20)
+
+
+
+21) Numéros et noms de chaque pilote et nombre d’avions qu’il pilote.
+
+select vol.numpil, nompil, count(numvol) from pilote inner join vol on pilote.numpil=vol.numpil group by vol.numpil, nompil ;
 
 
 
