@@ -130,4 +130,9 @@ SELECT numvol, villea, to_char(dated, 'hh24:mi') from VOL where villed = 'Marsei
 13)
 
 
-  
+
+14) Trier les vols au départ de Marseille, par ordre croissant sur les dates de départ
+
+select * from vol where villed='Marseille' order by dated;
+
+15)
