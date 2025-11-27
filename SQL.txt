@@ -130,11 +130,14 @@ SELECT numvol, villea, to_char(dated, 'hh24:mi') from VOL where villed = 'Marsei
 
 13)  Afficher le numéro et le modèle des avions dont le nom du modèle ne contient pas la lettre A/a.
 
-select numav, modav from avion where not modav like 'A%' or not  modav like 'a%' 
+select numav, modav from avion where not modav like 'A%' or not  modav like 'a%';
 
 
 14) Trier les vols au départ de Marseille, par ordre croissant sur les dates de départ
 
 select * from vol where villed='Marseille' order by dated;
 
-15)
+15) Afficher le numéro de vol, le modèle de l'avion, la ville d’arrivée, la date et l’heure de départ. 
+
+select numvol, modav, villed, dated, to_char(dated, 'hh24:mi') from vol 
+join avion on vol.numav=avion.numav; 
