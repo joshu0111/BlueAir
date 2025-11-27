@@ -179,7 +179,7 @@ select vol.numpil, nompil, count(numvol) from pilote inner join vol on pilote.nu
 group by vol.numpil, nompil order by count(numvol) desc;
 
 
-
+trunc( to_char(dated,'mi')-to_char(datea,'mi')/60) )
 
 
 
