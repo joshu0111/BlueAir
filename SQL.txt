@@ -108,16 +108,22 @@ Partie 2 :
 
 8) Afficher tous les avions de la compagnie (numéros, modèles et capacités). 
 
-select NumAv, ModAv, CapAv from avion
+select NumAv, ModAv, CapAv from avion;
 
 9) Afficher le nombre d’avions total et le nombre d’avions différents. 
-pour le nombre d'avions total : select count(*) from avion 
-pour le nombre d'avion differents : select count(distinct ModAv) from avion 
+pour le nombre d'avions total : select count(*) from avion;
+pour le nombre d'avion differents : select count(distinct ModAv) from avion; 
 
 10) Afficher le coût moyen d’un vol arrondi au centième.
 
-select round(AVG(coutvol), 2) from vol
+select round(AVG(coutvol), 2) from vol;
 
 11) Afficher le coût moyen des vols au départ de chaque ville arrondi au centième. 
+
+select villed, round(AVG(coutvol), 2) from vol group by villed;
+
+12) Afficher les numéros des vols, la destination et l’heure de départ des vols en partance de
+Marseille. 
+
 
   
