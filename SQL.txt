@@ -127,8 +127,10 @@ Marseille.
 
 SELECT numvol, villea, to_char(dated, 'hh24:mi') from VOL where villed = 'Marseille';
 
-13)
 
+13)  Afficher le numéro et le modèle des avions dont le nom du modèle ne contient pas la lettre A/a.
+
+select numav, modav from avion where not modav like 'A%'
 
 
 14) Trier les vols au départ de Marseille, par ordre croissant sur les dates de départ
