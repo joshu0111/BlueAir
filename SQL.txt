@@ -173,6 +173,12 @@ select vol.numpil, nompil, count(numvol) from pilote inner join vol on pilote.nu
 select pilote.NomPil from vol inner join pilote on pilote.NumPil = vol.NumPil group by pilote.NomPil 
 having sum((vol.DateA-vol.DateD)*24) = (select max(sum((vol.DateA-vol.DateD)*24)) from vol group by vol.NumPil);
 
+24) Noms des pilotes qui effectuent le plus de vols. 
+
+select vol.numpil, nompil, count(numvol) from pilote inner join vol on pilote.numpil=vol.numpil having count(numvol)> 1 
+group by vol.numpil, nompil order by count(numvol) desc;
+
+
 
 
 
