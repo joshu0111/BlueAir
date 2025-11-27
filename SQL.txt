@@ -149,6 +149,13 @@ select count(villed) from vol
 
 select sum(nbplaces) from reservation where numvol='V9000'
 
+18)
+
+
+19)Afficher les numéros et noms des clients ayant effectué au moins 2 réservations. $
+
+select client.numcl, nomcl from reservation inner join client on reservation.numcl=client.numcl group by client.numcl, nomcl having count(*)>=2;
+
 
 
 
