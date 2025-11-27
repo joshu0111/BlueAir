@@ -141,3 +141,9 @@ select * from vol where villed='Marseille' order by dated;
 
 select numvol, modav, villed, dated, to_char(dated, 'hh24:mi') from vol 
 join avion on vol.numav=avion.numav; 
+
+16) Afficher le nombre de villes desservies par la compagnie.
+select count(villed) from vol 
+
+
+
