@@ -103,4 +103,21 @@ insert into classe (NumVol, NomClasse, CoeffPlace, CoeffPrix)
 values ('V327B', 'AFF', 0.200, 2);
 
 7) Charger les données dans la table RESERVATION. 
+
+Partie 2 :
+
+8) Afficher tous les avions de la compagnie (numéros, modèles et capacités). 
+
+select NumAv, ModAv, CapAv from avion
+
+9) Afficher le nombre d’avions total et le nombre d’avions différents. 
+pour le nombre d'avions total : select count(*) from avion 
+pour le nombre d'avion differents : select count(distinct ModAv) from avion 
+
+10) Afficher le coût moyen d’un vol arrondi au centième.
+
+select round(AVG(coutvol), 2) from vol
+
+11) Afficher le coût moyen des vols au départ de chaque ville arrondi au centième. 
+
   
