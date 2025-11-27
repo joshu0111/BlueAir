@@ -107,7 +107,6 @@ values ('V327B', 'AFF', 0.200, 2);
 Partie 2 :
 
 8) Afficher tous les avions de la compagnie (numéros, modèles et capacités). 
-
 select NumAv, ModAv, CapAv from avion;
 
 9) Afficher le nombre d’avions total et le nombre d’avions différents. 
@@ -115,30 +114,24 @@ pour le nombre d'avions total : select count(*) from avion;
 pour le nombre d'avion differents : select count(distinct ModAv) from avion; 
 
 10) Afficher le coût moyen d’un vol arrondi au centième.
-
 select round(AVG(coutvol), 2) from vol;
 
 11) Afficher le coût moyen des vols au départ de chaque ville arrondi au centième. 
-
 select villed, round(AVG(coutvol), 2) from vol group by villed;
 
 12) Afficher les numéros des vols, la destination et l’heure de départ des vols en partance de
 Marseille. 
-
 SELECT numvol, villea, to_char(dated, 'hh24:mi') from VOL where villed = 'Marseille';
 
 
-13)  Afficher le numéro et le modèle des avions dont le nom du modèle ne contient pas la lettre A/a.
-
+13) Afficher le numéro et le modèle des avions dont le nom du modèle ne contient pas la lettre A/a.
 select numav, modav from avion where not modav like 'A%' or not  modav like 'a%';
 
 
 14) Trier les vols au départ de Marseille, par ordre croissant sur les dates de départ
-
 select * from vol where villed='Marseille' order by dated;
 
 15) Afficher le numéro de vol, le modèle de l'avion, la ville d’arrivée, la date et l’heure de départ. 
-
 select numvol, modav, villed, dated, to_char(dated, 'hh24:mi') from vol 
 join avion on vol.numav=avion.numav; 
 
@@ -146,40 +139,47 @@ join avion on vol.numav=avion.numav;
 select count(villed) from vol
 
 17) Afficher le nombre de places réservées sur le vol V9000. 
-
 select sum(nbplaces) from reservation where numvol='V9000'
 
 18) Afficher le nombre de réservation par client (nom client)
-
 select client.nomcl,count(reservation.numcl) from client inner join reservation on reservation.numcl=client.numcl group by nomcl
 
-
 19) Afficher les numéros et noms des clients ayant effectué au moins 2 réservations. $
-
 select client.numcl, nomcl from reservation inner join client on reservation.numcl=client.numcl group by client.numcl, nomcl having count(*)>=2;
 
-20) Numéros et noms des pilotes qui n’effectuent aucun vol.
-
+20) Numéros et noms des pilotes qui n’effectuent aucun vol
 select numpil, nompil from pilote where numpil not in (select numpil from vol)
 
 21) Numéros et noms de chaque pilote et nombre d’avions qu’il pilote.
-
 select vol.numpil, nompil, count(numvol) from pilote inner join vol on pilote.numpil=vol.numpil group by vol.numpil, nompil ;
 
 22) Donner le temps de vol total par pilote, exprimé en heures arrondies au centième
+select pilote.nompil, (abs(to_char(vol.datea,'hh24')-to_char(vol.dated, 'hh24')) + abs(round( (to_char(vol.dated,'mi')-to_char(vol.datea,'mi'))/60, 2) )) from vol inner join pilote on pilote.numpil=vol.numpil 
 
 23) Quel est le nom du pilote le plus expérimenté ? 
-
 select pilote.NomPil from vol inner join pilote on pilote.NumPil = vol.NumPil group by pilote.NomPil 
 having sum((vol.DateA-vol.DateD)*24) = (select max(sum((vol.DateA-vol.DateD)*24)) from vol group by vol.NumPil);
 
 24) Noms des pilotes qui effectuent le plus de vols. 
-
 select vol.numpil, nompil, count(numvol) from pilote inner join vol on pilote.numpil=vol.numpil having count(numvol)> 1 
 group by vol.numpil, nompil order by count(numvol) desc;
 
 
-trunc( to_char(dated,'mi')-to_char(datea,'mi')/60) )
+
+
+25) Existe-t-il un pilote ayant volé sur tous les modèles d'avions ? si oui, quel est son nom ?
 
 
 
+
+
+26) Liste des clients avec les infos suivantes pour tous les vols qu'ils ont réservés, triées sur le nom : Nom, Nomclasse, prix payé
+select client.nomcl, classe.nomclasse, (reservation.nbplaces * classe.coeffprix)  from reservation inner join client on client.numcl=reservation.numcl inner join classe on reservation.nomclasse=classe.nomclasse and reservation.numvol=classe.numvol
+
+27) Nombre de places existantes dans chaque classe du vol V9000.
+select 
+((select coeffplace from classe where nomclasse='AFF' and numvol='V9000') * avion.capav) as prix_AFF,
+((select coeffplace from classe where nomclasse='TOUR' and numvol='V9000') * avion.capav) as prix_TOUR,
+((select coeffplace from classe where nomclasse='ECO' and numvol='V9000') * avion.capav) as prix_ECO 
+from avion PRENDRE LE NB DE PLACE AVEC UNE JOINTURE DE VOL 
+!!!!PAS FINI!!!!
