@@ -24,11 +24,11 @@ CREATE TABLE classe (
 );
 
 CREATE TABLE reservation (
+    NumCl NUMBER(5),
     NumVol VARCHAR(5),
     NomClasse VARCHAR2(15),
-    NumCl NUMBER(5),
     NbPlaces NUMBER(3),
-    CONSTRAINT pk_reservation PRIMARY KEY (NumVol, NomClasse, NumCl)
+    CONSTRAINT CPRV PRIMARY KEY (NumCl, NumVol, NomClasse)
 );
 
 
@@ -102,4 +102,5 @@ or NumVol='V8D90' or NumVol='V327B' or NumVol='V0702';
 insert into classe (NumVol, NomClasse, CoeffPlace, CoeffPrix)
 values ('V327B', 'AFF', 0.200, 2);
 
+7) Charger les données dans la table RESERVATION. 
   
