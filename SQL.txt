@@ -168,6 +168,9 @@ group by vol.numpil, nompil order by count(numvol) desc;
 
 
 25) Existe-t-il un pilote ayant volé sur tous les modèles d'avions ? si oui, quel est son nom ?
+SELECT nompil from pilote join vol on pilote.numpil=vol.numpil 
+join avion on vol.numav=avion.numav group by nompil having count(*)=(
+select max(NbVols) from (select count(*) as NbVols from vol group by numpil));
 
 
 
