@@ -177,6 +177,11 @@ select client.nomcl, classe.nomclasse, (reservation.nbplaces * classe.coeffprix 
 27) Nombre de places existantes dans chaque classe du vol V9000.
 select distinct ((select coeffplace from classe where nomclasse='AFF' and numvol='V9000') * (select capav from avion where numav=(select numav from vol where numvol='V9000')) ) as place_AFF, ((select coeffplace from classe where nomclasse='TOUR' and numvol='V9000') * (select capav from avion where numav=(select numav from vol where numvol='V9000')) ) as place_TOUR, ((select coeffplace from classe where nomclasse='ECO' and numvol='V9000') * (select capav from avion where numav=(select numav from vol where numvol='V9000')) ) as place_ECO  from avion ;
 
+
+
+
+
+
 29 Afficher le coût des places pour chacune des classes du vol V9000.
 select distinct ((select coeffprix from classe where nomclasse='AFF' and numvol='V9000') * (select coutvol from vol where numvol='V9000')) as prix_place_AFF, ((select coeffprix from classe where nomclasse='TOUR' and numvol='V9000') * (select coutvol from vol where numvol='V9000')) as prix_place_TOUR, ((select coeffprix from classe where nomclasse='ECO' and numvol='V9000') * (select coutvol from vol where numvol='V9000')) as prix_place_ECO  from avion ;
 
