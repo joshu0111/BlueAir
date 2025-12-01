@@ -164,21 +164,15 @@ having sum((vol.DateA-vol.DateD)*24) = (select max(sum((vol.DateA-vol.DateD)*24)
 select vol.numpil, nompil, count(numvol) from pilote inner join vol on pilote.numpil=vol.numpil having count(numvol)> 1 
 group by vol.numpil, nompil order by count(numvol) desc;
 
-
-
-
 25) Existe-t-il un pilote ayant volé sur tous les modèles d'avions ? si oui, quel est son nom ?
 SELECT nompil from pilote join vol on pilote.numpil=vol.numpil 
 join avion on vol.numav=avion.numav group by nompil having count(*)=(
 select max(NbVols) from (select count(*) as NbVols from vol group by numpil));
 
-
-
-
-
 26) Liste des clients avec les infos suivantes pour tous les vols qu'ils ont réservés, triées sur le nom : Nom, Nomclasse, prix payé
 select client.nomcl, classe.nomclasse, (reservation.nbplaces * classe.coeffprix)  from reservation inner join client on client.numcl=reservation.numcl inner join classe on reservation.nomclasse=classe.nomclasse and reservation.numvol=classe.numvol
 
 27) Nombre de places existantes dans chaque classe du vol V9000.
+select distinct ((select coeffplace from classe where nomclasse='AFF' and numvol='V9000') * (select capav from avion where numav=(select numav from vol where numvol='V9000')) ) as place_AFF, ((select coeffplace from classe where nomclasse='TOUR' and numvol='V9000') * (select capav from avion where numav=(select numav from vol where numvol='V9000')) ) as place_TOUR, ((select coeffplace from classe where nomclasse='ECO' and numvol='V9000') * (select capav from avion where numav=(select numav from vol where numvol='V9000')) ) as place_ECO  from avion ;
 
 
