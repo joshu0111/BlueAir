@@ -177,9 +177,5 @@ group by vol.numpil, nompil order by count(numvol) desc;
 select client.nomcl, classe.nomclasse, (reservation.nbplaces * classe.coeffprix)  from reservation inner join client on client.numcl=reservation.numcl inner join classe on reservation.nomclasse=classe.nomclasse and reservation.numvol=classe.numvol
 
 27) Nombre de places existantes dans chaque classe du vol V9000.
-select 
-((select coeffplace from classe where nomclasse='AFF' and numvol='V9000') * avion.capav) as prix_AFF,
-((select coeffplace from classe where nomclasse='TOUR' and numvol='V9000') * avion.capav) as prix_TOUR,
-((select coeffplace from classe where nomclasse='ECO' and numvol='V9000') * avion.capav) as prix_ECO 
-from avion PRENDRE LE NB DE PLACE AVEC UNE JOINTURE DE VOL 
-!!!!PAS FINI!!!!
+
+
