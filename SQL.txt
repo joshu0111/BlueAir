@@ -129,67 +129,194 @@ select NumAv, ModAv, CapAv from avion;
 pour le nombre d'avions total : select count(*) from avion; Resultat : 10
 pour le nombre d'avion differents : select count(distinct ModAv) from avion; Resultat 7
 
+
 10) Afficher le coût moyen d’un vol arrondi au centième.
 select round(AVG(coutvol), 2) from vol;
 
+55,24
+
+
 11) Afficher le coût moyen des vols au départ de chaque ville arrondi au centième. 
 select villed, round(AVG(coutvol), 2) from vol group by villed;
+
+Marseille	39,25
+Lille	95
+Paris	50
+Lyon	63,71
+Bordeaux	41
+
 
 12) Afficher les numéros des vols, la destination et l’heure de départ des vols en partance de
 Marseille. 
 SELECT numvol, villea, to_char(dated, 'hh24:mi') from VOL where villed = 'Marseille';
 
+V12A1	Paris	15:17
+V9000	Lyon	20:30
+V7B90	Bordeaux	07:10
+V66AA	Grenoble	07:05
+
 
 13) Afficher le numéro et le modèle des avions dont le nom du modèle ne contient pas la lettre A/a.
 select numav, modav from avion where not modav like 'A%' or not  modav like 'a%';
+
+1234	AIRBUS A300
+1512	AIRBUS A600
+7932	BOEING 707
+8121	CESSNA
+9867	CESSNA
+1259	AIRBUS A300
+7713	BOEING 737
+1599	BOEING 737
+3384	AIRBUS A200
+6691	BOEING 747
 
 
 14) Trier les vols au départ de Marseille, par ordre croissant sur les dates de départ
 select * from vol where villed='Marseille' order by dated;
 
-15) Afficher le numéro de vol, le modèle de l'avion, la ville d’arrivée, la date et l’heure de départ. 
-select numvol, modav, villed, dated, to_char(dated, 'hh24:mi') from vol 
-join avion on vol.numav=avion.numav; 
+V12A1	Marseille	Paris	08/01/23	08/01/23	7654	7713	35
+V9000	Marseille	Lyon	08/01/23	08/01/23	5407	6691	40
+V66AA	Marseille	Grenoble	17/02/23	17/02/23	5002	1512	50
+V7B90	Marseille	Bordeaux	17/02/23	17/02/23	8837	8121	32
+
+
+15) Afficher le numéro de vol, le modèle de l avion, la ville d’arrivée, la date et l’heure de départ. 
+select numvol, modav, villed, dated, to_char(dated, 'hh24:mi') from vol join avion on vol.numav=avion.numav; 
+
+V9200	AIRBUS A300	Lyon	02/06/23	20:00
+V8D90	AIRBUS A300	Paris	18/02/23	16:10
+V9201	AIRBUS A600	Lyon	02/05/23	08:00
+V66AA	AIRBUS A600	Marseille	17/02/23	07:05
+V74FG	BOEING 737	Bordeaux	05/02/23	12:20
+V8000	AIRBUS A200	Lyon	14/12/23	18:10
+V9204	AIRBUS A200	Lille	02/06/23	15:00
+V0702	BOEING 747	Paris	30/11/23	15:00
+V9000	BOEING 747	Marseille	08/01/23	20:30
+V9205	BOEING 747	Lyon	02/05/23	18:00
+V9202	BOEING 737	Lyon	02/02/23	10:00
+V12A1	BOEING 737	Marseille	08/01/23	15:17
+V8E90	BOEING 737	Paris	04/02/23	19:30
+V9206	BOEING 707	Lyon	02/01/23	17:00
+V7B90	CESSNA	Marseille	17/02/23	07:10
+V9203	CESSNA	Paris	02/04/23	13:00
+V327B	CESSNA	Lyon	06/02/23	20:00
+
 
 16) Afficher le nombre de villes desservies par la compagnie.
-select count(villed) from vol
+select count(villed) from vol;
+
+17
+
 
 17) Afficher le nombre de places réservées sur le vol V9000. 
-select sum(nbplaces) from reservation where numvol='V9000'
+select sum(nbplaces) from reservation where numvol='V9000';
+
+5
 
 18) Afficher le nombre de réservation par client (nom client)
-select client.nomcl,count(reservation.numcl) from client inner join reservation on reservation.numcl=client.numcl group by nomcl
+select client.nomcl,count(reservation.numcl) from client inner join reservation on reservation.numcl=client.numcl group by nomcl;
+
+FAVER	2
+DUTIER	1
+GIROLLE	2
+RIBEIRA	1
+MARI	1
+GARI	2
+
 
 19) Afficher les numéros et noms des clients ayant effectué au moins 2 réservations. $
 select client.numcl, nomcl from reservation inner join client on reservation.numcl=client.numcl group by client.numcl, nomcl having count(*)>=2;
 
+1107	GIROLLE
+5407	FAVER
+6692	GARI
+
+
 20) Numéros et noms des pilotes qui n’effectuent aucun vol
-select numpil, nompil from pilote where numpil not in (select numpil from vol)
+select numpil, nompil from pilote where numpil not in (select numpil from vol);
+
+6789	DUPUIS
+
 
 21) Numéros et noms de chaque pilote et nombre d’avions qu’il pilote.
 select vol.numpil, nompil, count(numvol) from pilote inner join vol on pilote.numpil=vol.numpil group by vol.numpil, nompil ;
 
+3240	ALONSO	1
+3947	SCHMIDT	1
+4003	LAMBERT	1
+5002	DURAND	2
+5407	DELTAN	1
+6991	DAVIR	7
+7654	ROBERT	2
+7802	DURAND	1
+8837	SMITH	1
+
+
 22) Donner le temps de vol total par pilote, exprimé en heures arrondies au centième
-select pilote.nompil, (abs(to_char(vol.datea,'hh24')-to_char(vol.dated, 'hh24')) + abs(round( (to_char(vol.dated,'mi')-to_char(vol.datea,'mi'))/60, 2) )) from vol inner join pilote on pilote.numpil=vol.numpil 
+select pilote.nompil, (abs(to_char(vol.datea,'hh24')-to_char(vol.dated, 'hh24')) + abs(round( (to_char(vol.dated,'mi')-to_char(vol.datea,'mi'))/60, 2) )) from vol inner join pilote on pilote.numpil=vol.numpil ;
+
+ALONSO	1,17
+SCHMIDT	1,17
+LAMBERT	1,08
+DURAND	1,5
+DURAND	1,17
+DELTAN	1,33
+DAVIR	1,83
+DAVIR	1,83
+DAVIR	1,83
+DAVIR	1,83
+DAVIR	1,83
+DAVIR	1,83
+DAVIR	0,83
+ROBERT	1,3
+ROBERT	1,08
+DURAND	1,5
+SMITH	1,25
+
 
 23) Quel est le nom du pilote le plus expérimenté ? 
 select pilote.NomPil from vol inner join pilote on pilote.NumPil = vol.NumPil group by pilote.NomPil 
 having sum((vol.DateA-vol.DateD)*24) = (select max(sum((vol.DateA-vol.DateD)*24)) from vol group by vol.NumPil);
 
+DAVIR
+
+
 24) Noms des pilotes qui effectuent le plus de vols. 
 select vol.numpil, nompil, count(numvol) from pilote inner join vol on pilote.numpil=vol.numpil having count(numvol)> 1 
 group by vol.numpil, nompil order by count(numvol) desc;
 
-25) Existe-t-il un pilote ayant volé sur tous les modèles d'avions ? si oui, quel est son nom ?
+6991	DAVIR	7
+5002	DURAND	2
+7654	ROBERT	2
+
+
+25) Existe-t-il un pilote ayant volé sur tous les modèles d avions ? si oui, quel est son nom ?
 SELECT nompil from pilote join vol on pilote.numpil=vol.numpil 
 join avion on vol.numav=avion.numav group by nompil having count(*)=(
 select max(NbVols) from (select count(*) as NbVols from vol group by numpil));
 
-26) Liste des clients avec les infos suivantes pour tous les vols qu'ils ont réservés, triées sur le nom : Nom, Nomclasse, prix payé
+DAVIR
+
+
+26) Liste des clients avec les infos suivantes pour tous les vols qu ils ont réservés, triées sur le nom : Nom, Nomclasse, prix payé
 select client.nomcl, classe.nomclasse, (reservation.nbplaces * classe.coeffprix * vol.coutvol) as prix_payé from reservation inner join client on client.numcl=reservation.numcl inner join classe on reservation.nomclasse=classe.nomclasse and reservation.numvol=classe.numvol inner join vol on reservation.numvol=vol.numvol;
+
+FAVER	AFF	160
+DUTIER	AFF	240
+RIBEIRA	ECO	41
+GARI	ECO	114
+FAVER	TOUR	258
+GARI	TOUR	210
+GIROLLE	TOUR	117
+GIROLLE	TOUR	105
+MARI	AFF	140
+
 
 27) Nombre de places existantes dans chaque classe du vol V9000.
 select distinct ((select coeffplace from classe where nomclasse='AFF' and numvol='V9000') * (select capav from avion where numav=(select numav from vol where numvol='V9000')) ) as place_AFF, ((select coeffplace from classe where nomclasse='TOUR' and numvol='V9000') * (select capav from avion where numav=(select numav from vol where numvol='V9000')) ) as place_TOUR, ((select coeffplace from classe where nomclasse='ECO' and numvol='V9000') * (select capav from avion where numav=(select numav from vol where numvol='V9000')) ) as place_ECO  from avion ;
+
+240	240	120
+
 
 28) Nombre de places disponibles dans chaque classe du vol V9000. 
 select distinct ((select coeffplace from classe where nomclasse='AFF' and numvol='V9000') * 
@@ -203,11 +330,14 @@ select distinct ((select coeffplace from classe where nomclasse='AFF' and numvol
 (select NVL((select sum(nbplaces) from reservation where numvol='V9000' and nomclasse='ECO'),0) from dual)  as Place_ECO
 from avion;
 
-
+235	240	120
 
 
 29) Afficher le coût des places pour chacune des classes du vol V9000.
 select distinct ((select coeffprix from classe where nomclasse='AFF' and numvol='V9000') * (select coutvol from vol where numvol='V9000')) as prix_place_AFF, ((select coeffprix from classe where nomclasse='TOUR' and numvol='V9000') * (select coutvol from vol where numvol='V9000')) as prix_place_TOUR, ((select coeffprix from classe where nomclasse='ECO' and numvol='V9000') * (select coutvol from vol where numvol='V9000')) as prix_place_ECO  from avion ;
+
+80	60	40
+
 
 30) Supprimer toutes les réservations du client 1752 pour le vol V9000.
 delete from reservation where numcl='1752' and numvol='V9000'
