@@ -126,8 +126,8 @@ select NumAv, ModAv, CapAv from avion;
 
 
 9) Afficher le nombre d’avions total et le nombre d’avions différents. 
-pour le nombre d'avions total : select count(*) from avion;
-pour le nombre d'avion differents : select count(distinct ModAv) from avion; 
+pour le nombre d'avions total : select count(*) from avion; Resultat : 10
+pour le nombre d'avion differents : select count(distinct ModAv) from avion; Resultat 7
 
 10) Afficher le coût moyen d’un vol arrondi au centième.
 select round(AVG(coutvol), 2) from vol;
