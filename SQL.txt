@@ -1,3 +1,5 @@
+Robin Bourrel et Joshua Ruel Ramos S1D
+
 
 
 1) Récupérer le fichier de création de tables AVION, PILOTE, CLIENT et VOL sur le cours en ligne.
@@ -192,8 +194,8 @@ from avion;
 
 
 
-29 Afficher le coût des places pour chacune des classes du vol V9000.
+29) Afficher le coût des places pour chacune des classes du vol V9000.
 select distinct ((select coeffprix from classe where nomclasse='AFF' and numvol='V9000') * (select coutvol from vol where numvol='V9000')) as prix_place_AFF, ((select coeffprix from classe where nomclasse='TOUR' and numvol='V9000') * (select coutvol from vol where numvol='V9000')) as prix_place_TOUR, ((select coeffprix from classe where nomclasse='ECO' and numvol='V9000') * (select coutvol from vol where numvol='V9000')) as prix_place_ECO  from avion ;
 
-30 Supprimer toutes les réservations du client 1752 pour le vol V9000.
+30) Supprimer toutes les réservations du client 1752 pour le vol V9000.
 delete from reservation where numcl='1752' and numvol='V9000'
